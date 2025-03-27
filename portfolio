@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Saba Kheirinejad - projects</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
+            background: #fbf6f6;
+            color:  #212F3C;
+        }
+
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            /*padding-left: 23%; /* Account for sidebar */ */
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: #fbf6f6;
+            margin-left: 27%;
+        }
+         header a {
+            display: inline-block;
+            padding-top: 20px;
+            background: #fbf6f6;
+            color:  #212F3C;
+            margin-right:50px; 
+            font-size: 18px;
+            text-decoration: none;
+        }
+        .active {
+            font-weight: bold;
+/*             text-decoration: underline; */
+        }
+        header a:first-child {
+            margin-left: 0;
+        }
+        footer {
+    width: 77%; /* The footer occupies the remaining 77% of the width, after the sidebar */
+    padding: 35px 20px;
+    background: #fbf6f6;
+    color: #AEB6BF;
+    text-align: center;
+    left: 23%; /* Starts after the sidebar which is 23% of the full width */
+    right: 0; /* Ensures the footer extends to the end of the container */
+    margin-left: calc((77% - 800px) / 2); /* Centers the text by adjusting the left margin within the 77% area */
+    font-weight: normal; /* This ensures the footer text is not bold */
+}
+        .main-content {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .content {
+            flex: 1;
+            padding: 10px;
+            max-width: 800px;
+            text-align: justify;
+            line-height: 1.6;
+            padding-left: 27%; /* Account for sidebar */
+        }
+         .content section {
+           max-width: 800px;
+           padding-bottom: 20px; /* Padding below each section content */
+           margin-bottom: 15px; /* Space below the divider line */
+        }
+
+       .sidebar {
+            position: fixed; /* Stick sidebar to the screen */
+            top: 0; /* Align top */
+            left: 0; /* Align left */
+            width: 23%;
+            height: 100vh; /* Ensures at least viewport height */
+            background-color:#1d9ea7;
+            color:  #212F3C;
+            /* display: flex;
+            flex-direction: column;
+            justify-content: start; */
+            overflow-y: auto; /* Enable scrolling within sidebar */
+        }
+         .sidebar h3 {
+            margin-left: 30px;
+            font-size: 22px;
+        }
+        .sidebar p {
+            text-align: justify;
+            max-width: 200px; /* Limit the width for better readability */
+            line-height: 1.6;
+            margin-left: 30px;
+            padding-top: 0;
+            font-size: 16px;
+        }
+
+        .profile-pic {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            margin-bottom: 20px;  
+            margin-left: 30px;
+            margin-top: 30px;
+            margin-right: auto;
+        }
+        .profile-links a {
+            color: #212F3C;
+            text-decoration: none;
+            display: block;
+            margin-left:30px;
+            margin-top: 30px;
+            margin-bottom: 20px;
+             font-size: 14px;
+
+        }
+        .profile-links i {
+            margin-right: 5px;
+        }
+        
+        .project {
+            border: 1px solid  #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-header {
+            position: relative; /* Ensure the vertical line is positioned relative to the header */
+}
+       
+          .project-header h2 {
+            font-weight: 700; /* 700 is the numeric value for bold */
+            font-size: 18px;
+            margin-bottom: 10px; /* Adjust the value for the desired spacing */
+            padding-left: 25px;
+            color: #1d9ea7;
+         }
+
+          .project-header h2::before {
+            content: '';
+            position: absolute;
+            left: 2px;
+            top: 20px;
+            bottom: 20px;
+            width: 9px; /* Vertical line thickness */
+            background-color: #1d9ea7; /* Line color */
+}
+        .project-author {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            color: #1d9ea7; /* Matches your color scheme */;
+        }
+
+        .project-links a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+             margin-right: 30px;
+        }
+
+     /* PDF icon */
+.project-links a.pdf::before {
+    content: "\f1c1"; /* Font Awesome PDF icon */
+    font-family: "Font Awesome 5 Free"; /* Ensure it's using Font Awesome */
+    font-weight: 900; /* Required for solid icons */
+    margin-right: 5px; /* Spacing between icon and text */
+    font-size: 20px; /* Adjust size as needed */
+    color: #1d9ea7; /* Matches your color scheme */
+}
+
+.project-links a.doi::before {
+    content: "\f0c1"; /* Font Awesome chain link icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900; /* Required for solid icons */
+    color: #1d9ea7; /* Matches your color scheme */
+    margin-right: 5px; /* Adjust spacing */
+    font-size: 20px; /* Adjust size as needed */
+}
+        
+/* Cite icon using quotation mark from Font Awesome */
+.project-links a.cite::before {
+    content: "\f10e"; /* Font Awesome quotation mark icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900; /* Required for solid icons */
+    color: #1d9ea7; /* Use your preferred color */
+    font-size: 20px; /* Adjust size as necessary */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+        .project-content {
+            display: flex;
+           /* flex-direction: row;  Aligns image and text side by side */
+            flex-wrap: wrap; /* Allows content to wrap when needed */
+            justify-content: space-between;
+            margin-bottom: 20px;
+            /*align-items: stretch;  Ensure both text and image take the full height of the container */
+            align-items: flex-start; /* Aligns items at the top */
+        }
+
+        .project-image {
+            flex: 1 1 50%;
+            max-width: 50%; /* Prevents exceeding 60% */
+        }
+
+        .project-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .project-abstract {
+            flex: 1 1 50%; /* Takes 40% width when image is present */
+            max-width: 47%; /* Ensures it doesn't exceed 40% when the image is present */
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: normal; /* This ensures the text is not bold */
+            align-self: stretch; /* Matches the height of the image when next to it */
+        }
+
+        /* Automatically makes the text span full width after the image ends */
+       .project-abstract:nth-child(2) {
+          flex: 1 1 100%; /* Text takes 100% width after wrapping */
+          max-width: 100%; /* Ensures full-width usage */
+        }
+
+        
+        /* Full width for the text when the image is not present or ends */
+       @media (max-width: 768px) {
+       .project-content {
+            flex-direction: column; /* Stacks image and text horizontally */
+    }
+       .project-abstract {
+           flex: 1 1 100%; /* Text takes 100% width on small screens or after wrapping */
+           max-width: 100%;
+    }
+    .project-image {
+        flex: 1 1 100%; /* Image also takes full width on small screens */
+        max-width: 100%;
+        margin-left: 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="images/photo.jpg" alt="Saba Kheirinejad" class="profile-pic">
+        <h3>Saba Kheirinejad</h3>
+        <p>PhD student at the Center for Ubiquitous Computing at the University of Oulu researching Human-Computer Interaction and Mobile Health</p>
+        <div class="profile-links">
+            <a href="https://www.linkedin.com/in/saba-kheirinejad/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=H95bR-0AAAAJ&hl=en"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+            <a href="https://github.com/SabaKheirinejad"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <a href="index.html">Home</a>
+            <a href="publications.html">Publications</a>
+            <a href="portfolio.html" class="active">Projects</a>
+        </header>
+
+        <div class="content">
+            <h1>Selected Projects</h1>
+            
+            <!-- Project 1 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Leave your smartphone out of bed: quantitative analysis of smartphone use effect on sleep quality</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Saba Kheirinejad, Aku Visuri, Denzil Ferreira, Simo Hosio
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://link.springer.com/content/pdf/10.1007/s00779-022-01694-w.pdf" class="pdf">PDF</a> 
+                    <a href="https://doi.org/10.1007/s00779-022-01694-w"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:oTVtn7C_qEAJ:scholar.google.com/&output=citation&scisdr=ClEwG9zpEI_2ikKNFgw:AFWwaeYAAAAAZvSLDgyYTXEowdlN9-jqGU7x4eQ&scisig=AFWwaeYAAAAAZvSLDmQz40dhpZoQEmJpUfpepDM&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+Smartphones have become an integral part of people’s everyday lives. Smartphones are used across all household locations, including in the bed at night. Smartphone screens and other displays emit blue light, and exposure to blue light can
+affect one’s sleep quality. Thus, smartphone use prior to bedtime could disrupt the quality of one’s sleep, but research lacks
+quantitative studies on how smartphone use can influence sleep. This study combines smartphone application use data from
+75 participants with sleep data collected by a wearable ring. On average, the participants used their smartphones in bed for
+322.8 s (5 min and 22.8 s), with an IQR of 43.7–456. Participants spent an average of 42% of their time in bed using their
+smartphones (IQR of 5.87–55.5%). Our findings indicate that smartphone use in bed has significant adverse effects on sleep
+latency, awake time, average heart rate, and HR variability. We also find that smartphone use does not decrease sleep quality
+when used outside of bed. Our results indicate that intense smartphone use alone does not negatively affect well-being. Since
+all smartphone users do not use their phones in the same way, extending the investigation to different smartphone use types
+might yield more information than general smartphone use. In conclusion, this paper presents the first investigation of the
+association between smartphone application use logs and detailed sleep metrics. Our work also validates previous research
+results and highlights emerging future work.
+                    </div>
+                    <div class="project-image">
+                        <img src="images/Oura.JPG" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+
+            
+            <!-- Project 2 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Exploring mHealth applications for self-management of chronic low back pain: A survey of features and benefits</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Saba Kheirinejad, Aku Visuri, Sharadhi Alape Suryanarayana, Simo Hosio
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://www.cell.com/action/showPdf?pii=S2405-8440%2823%2903793-3" class="pdf">PDF</a> 
+                    <a href="https://doi.org/10.1016/j.heliyon.2023.e16586"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:oTVtn7C_qEAJ:scholar.google.com/&output=citation&scisdr=ClEwG9zpEI_2ikKNFgw:AFWwaeYAAAAAZvSLDgyYTXEowdlN9-jqGU7x4eQ&scisig=AFWwaeYAAAAAZvSLDmQz40dhpZoQEmJpUfpepDM&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+The adoption of Mobile Health (mHealth) for self-management is growing. mHealth solutions
+are commonly used in public healthcare and health services, where they are appreciated for
+their ease of use, broad reach, and wide acceptance. Chronic Low Back Pain (CLBP) is one
+of the most common health problems and a leading cause of disability. As such, it imposes a
+tremendous burden on patients and society. Studies have proposed that mHealth self-management
+solutions, such as mobile applications, can supplement traditional care methods and benefit
+patients, particularly in self-managing CLBP easier. To this end, the number of available mobile
+applications for CLBP has increased. This paper i) provides an overview of scientific studies on
+mobile applications for CLBP management from three different viewpoints: researchers, health
+professionals, and patients, ii) uncovers the application features that were seen as beneficial in
+the studies, and iii) contrasts the currently available applications for CLBP in Google Play Store
+and Apple App Store against the discovered features. The findings show that “Personalization
+and customization” is the most significant feature as it is beneficial from stakeholders’ viewpoint
+and is represented by most applications. In contrast, “Gamification” and “Artificial intelligence”
+are the least significant features, indicating a lack of attention from application creators and
+researchers in this area.
+                    </div>
+                    <div class="project-image">
+                        <img src="images/citation_appnumber.png" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Project 3 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>How Does Sleep Tracking Influence Your Life? Experiences from a Longitudinal Field Study with a Wearable Ring</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Elina Kuosmanen, Aku Visuri, Saba Kheirinejad, Niels Van Berkel, Heli Koskimäki, Denzil Ferreira, Simo Hosio
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://dl.acm.org/doi/pdf/10.1145/3546720" class="pdf">PDF</a> 
+                    <a href="https://doi.org/10.1145/3546720"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:-yDRgboF22MJ:scholar.google.com/&output=citation&scisdr=ClEwG9zpEI_2ik_sOEE:AFWwaeYAAAAAZvnqIEFfdhp4LuCrQORBPmKaxOk&scisig=AFWwaeYAAAAAZvnqIJSD6JJfllZNm_hHWyMFo18&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+A new generation of wearable devices now enables end-users to keep track of their sleep patterns. This paper
+reports on a longitudinal study of 82 participants who used a state-of-the-art sleep-tracking ring for an
+average of 65 days. We conducted interviews and questionnaires to understand changes to their lifestyle, their
+perceptions of the tracked information and sleep, and the overall experience of using an unobtrusive sleep-tracking device. Our results indicate that such a device is suitable for long-term sleep tracking and helpful in
+identifying detrimental lifestyle elements that hinder sleep quality. However, tracking one’s sleep can also
+introduce stress or physical discomfort, potentially leading to adverse outcomes. We discuss these findings in
+light of related work and highlight the near-term research directions that the rapid commoditisation of sleep-tracking technology enables.
+                    </div>
+                    <div class="project-image">
+                        <img src="images/Users.png" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+ <!-- Project 4 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Assessing MyData scenarios: Ethics, concerns, and the promise</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Andy Alorwu, Saba Kheirinejad, Niels Van Berkel, Marianne Kinnula, Denzil Ferreira, Aku Visuri, Simo Hosio
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://dl.acm.org/doi/pdf/10.1145/3411764.3445213" class="pdf">PDF</a> 
+                    <a href="https://dl.acm.org/doi/abs/10.1145/3411764.3445213"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:-yDRgboF22MJ:scholar.google.com/&output=citation&scisdr=ClEwG9zpEI_2ik_sOEE:AFWwaeYAAAAAZvnqIEFfdhp4LuCrQORBPmKaxOk&scisig=AFWwaeYAAAAAZvnqIJSD6JJfllZNm_hHWyMFo18&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+Public controversies around the unethical use of personal data are increasing, spotlighting data ethics as an increasingly important field of study. 
+MyData is a related emerging vision that emphasizes individuals’ control of their personal data. In this paper, we investigate people’s perceptions of various data management scenarios
+by measuring the perceived ethicality and level of felt concern concerning the scenarios. We deployed a set of 96 unique scenarios
+to an online crowdsourcing platform for assessment and invited a representative sample of the participants to a second-stage questionnaire about the MyData vision and its potential in the feld of
+healthcare. Our results provide a timely investigation into how topical data-related practices affect the perceived ethicality and the felt concern.
+The questionnaire analysis reveals great potential in the MyData vision. Through the combined quantitative and qualitative results, 
+                        we contribute to the field of data ethics.
+                    </div>
+                    <div class="project-image">
+                        <img src="images/scenarios.png" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+ <!-- Project 5 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Contrasting the Expectations and Experiences Related to Mobile Health Use for Chronic Pain: Questionnaire Study</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Saba Kheirinejad, Andy Alorwu, Aku Visuri, Simo Hosio
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://humanfactors.jmir.org/2022/3/e38265/PDF" class="pdf">PDF</a> 
+                    <a href="https://humanfactors.jmir.org/2022/3/e38265"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:bhkZuugAO5wJ:scholar.google.com/&output=citation&scisdr=ClEwG30TENbpgipDDGE:AFWwaeYAAAAAZ5FFFGGUW-wJW_8Tf6PvZtPNxrg&scisig=AFWwaeYAAAAAZ5FFFO5z3SUkNZDMBPXs0aG92Sw&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+                    Chronic pain is a prolonged condition that deteriorates one's quality of life.
+                    Treating chronic pain requires a multi-component approach, and in many cases, there are no silver bullet solutions.
+                    Mobile health (mHealth) is a rapidly expanding category of solutions in digital health with proven potential in chronic pain management. 
+                    The initial response from the patient community, however, is mixed. 
+                    In this paper, we contrast the viewpoints of two groups of people with chronic pain concerning mHealth: 
+                    people who have adopted the technology and those who have not. Through a large-scale online questionnaire, 
+                    we discovered that non-users were more concerned about data privacy and expected mHealth to facilitate interacting with health professionals. 
+                    The users, in contrast, felt that such connections do not exist. 
+                    We highlight the benefits of mHealth solutions for people with chronic pain and the perceived obstacles to their increased adoption.
+                    We provide recommendations to encourage people to try mHealth solutions as part of their self-care.
+                    </div>  
+                    <div class="project-image">
+                       <img src="images/usefulness.jpg" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+            
+  <!-- Project 6 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Evaluating Exploratory Reading Groups for Supporting Undergraduate Research Pipelines in Computing</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> David M. Torres-Mendoza, Saba Kheirinejad, Mustafa Ajmal, Ashwin Chembu, Dustin Palea,
+                        Jim Whitehead, David T. Lee
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://dl.acm.org/doi/pdf/10.1145/3632620.3671104" class="pdf">PDF</a> 
+                    <a href="https://dl.acm.org/doi/abs/10.1145/3632620.3671104"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:gi8TDh97TnsJ:scholar.google.com/&output=citation&scisdr=ClEwG30TENbpgjX3n2c:AFWwaeYAAAAAZ47xh2dYeASjxqA_wIknCJmRe7I&scisig=AFWwaeYAAAAAZ47xh-2n8Z2TMtLLAmUGF2amuK8&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+                        This paper reports on a summative analysis of Exploratory Reading Groups (ERGs), a low time-commitment, relational, student-led reading group program designed to provide students from any background and year with a broad exploration of computing research. Since prior work, the program was institutionalized as a 1-credit course with a greater emphasis on strengthening pipelines into research labs.
+                        In analyzing 3 quarters of data from 136 participants, we found diverse indicators of impact. 
+                        Surprisingly, despite the lightweight nature of the program (∼ 2 hours/week), we observed a statistically significant increase in satisfaction with their intellectual development at the university;
+                        confidence in reading, presenting, and communicating about their field; sense of belonging for women and minoritized ethnic groups; alignment with faculty goals in joining research labs (greater desire to make a research contribution and publish,
+                        decreased desire to join for the purpose of exploration); and engagement in the ‘reconsideration’ dimension of career identity formation. Over 70% of the participants continued on into group research projects for undergraduate students. 
+                        The effectiveness of this scalable, lightweight initiative shows the promise of ERGs as a tool to support students in computing when connected to group research projects and points to future research directions on designing other lightweight, relational, scalable learning experiences.
+                    </div>
+                    <div class="project-image">
+                       <img src="images/ERG.jpg" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+     <!-- Project 7 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Exploring Smart Standing Desks to Foster a Healthier Workplace</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Luke Haliburton, Saba Kheirinejad, Albrecht Schmidt, Sven Mayer
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://dl.acm.org/doi/pdf/10.1145/3596260" class="pdf">PDF</a> 
+                    <a href="https://dl.acm.org/doi/abs/10.1145/3596260"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:oTVtn7C_qEAJ:scholar.google.com/&output=citation&scisdr=ClEwG9zpEI_2ikKNFgw:AFWwaeYAAAAAZvSLDgyYTXEowdlN9-jqGU7x4eQ&scisig=AFWwaeYAAAAAZvSLDmQz40dhpZoQEmJpUfpepDM&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+Sedentary behavior is endemic in modern workplaces, contributing to negative physical and mental health outcomes. 
+Although adjustable standing desks are increasing in popularity, people still avoid standing.
+We developed an open-source plug-and-play system to remotely control standing desks and investigated three system modes with a three-week in-the-wild user study N=15.
+Interval mode forces users to stand once per hour, causing frustration. Adaptive mode nudges users to stand every hour unless the user has stood already. 
+Smart mode, which raises the desk during breaks, was the best rated, contributing to increased standing time with the most positive qualitative feedback. 
+However, non-computer activities need to be accounted for in the future. 
+Therefore, our results indicate that a smart standing desk that shifts modes at opportune times has the most potential to reduce sedentary behavior in the workplace.
+We contribute our open-source system and insights for future intelligent workplace well-being systems.
+                    </div>
+                    <div class="project-image">
+                       <img src="images/timeline.JPG" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+<!-- Project 8 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Exploring Situated Empathy through a Metaverse Campus</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Ville Paananen, Sina Kiarostami, Lik-Hang Lee, Aku Visuri, Saba Kheirinejad, Simo Hosio
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://dl.acm.org/doi/abs/10.1145/3616961.3616971" class="pdf">PDF</a> 
+                    <a href="https://dl.acm.org/doi/pdf/10.1145/3616961.3616971"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:manUUk4MKI4J:scholar.google.com/&output=citation&scisdr=ClEwG30TENbpgipNH_E:AFWwaeYAAAAAZ5FLB_GQt3Cb43_itIy6CxCeKDI&scisig=AFWwaeYAAAAAZ5FLB7flKPMcL3cDOv21SzLjl2o&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+Virtual Reality (VR) is promising in communicating people’s hardship experiences in simulated situations. This can help foster empathy among people.
+                        In this paper, we present a VR experience designed to showcase the hardship experiences of an international higher education community concerning their studies and lives in an unfamiliar neighborhood.
+                        We collected hardship stories and data from 40 members of the community through an online questionnaire. The questionnaire analysis led to understanding critical issues, such as social problems, language barriers, issues with bureaucracy, and racism.
+                        We then turned the issues into interactive stories in VR. We recruited 18 participants to experience the hardship stories through interactions with avatars in a VR version of the campus where the community is located.
+                        Our preliminary results from the questionnaires suggest that the participants’ knowledge and tendency to willingness to discuss the hardships improved due to participating in the experience.
+                        Further, our semi-structured interviews reflect positively on the VR experience’s memorability, the stories’ plausibility and participants’ increased situated empathy and awareness regarding the hardships of the local international community. 
+                        This early exploration informs future studies focusing on situated empathy.
+                    </div>
+                    <div class="project-image">
+                       <img src="images/dialogue.jpg" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+ <!-- Project 9 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Text-Based Traffic Panels Detection using the Tiny YOLOv3 Algorithm</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Saba Kheirinejad, Noushin Riahi, Reza Azmi
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://pdfs.semanticscholar.org/9ba1/11cad3d803e78800d755cf0e276bec557e63.pdf" class="pdf">PDF</a> 
+                    <a href="https://www.jenrs.com/v01/i03/p008/"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:f2ptd9h7z-YJ:scholar.google.com/&output=citation&scisdr=ClEwG30TENbpgipkjIc:AFWwaeYAAAAAZ5FilIdgSIUC10bZmNZ9Gp5cEpE&scisig=AFWwaeYAAAAAZ5FilMSkLZQASn_cNTYXqOalA5Q&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+ Lately, traffic panel detection has been engrossed by academia and industry. This study proposes a new
+categorization method for traffic panels. The traffic panels are classified into three classes: symbol-based, text-based,
+and supplementary/additional traffic panels. Although few types of research have investigated text-based traffic panels,
+this type is considered in detail in this study. However, there are many challenges in this type of traffic panel, such as
+having different languages in different countries, their similarity with other text panels, and the lack of suitable quality
+datasets. The panels need to be detected first to obtain a reasonable accuracy in recognizing the text. Since there are few
+public text-based traffic panel datasets, this study gathered a novel dataset for the Persian text-based traffic panels all
+over the streets of Tehran-Iran. This dataset includes two collections of images. The first collection has 9294 images, and
+the latter has 3305 images. The latter dataset is more monotonous than the first one. Thus, the latter is utilized as the
+main dataset, and the first is used as an additional dataset. To this end, the algorithm uses the additional dataset for
+pre-training and the main datasets for training the network. The tiny YOLOv3 algorithm that is fast and has low
+complexity compared to the YOLOv3 is used for pre-training, training, and testing the data to examine the utility and
+advantages of the data. The K-fold cross-validation procedure is used to estimate the model's skill on the new data. It
+achieves 0.973 for Precision, 0.945 for Recall, and 0.955 for Fmeasure.
+                    </div>
+                    <div class="project-image">
+                       <img src="images/blocked.jpg" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Project 10 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Persian Text-Based Traffic Sign Detection with Convolutional Neural Network: A New Dataset</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong> Saba Kheirinejad, Noushin Riahi, Reza Azmi
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9303646" class="pdf">PDF</a> 
+                    <a href="https://ieeexplore.ieee.org/abstract/document/9303646"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:QBDhNLuf4BoJ:scholar.google.com/&output=citation&scisdr=ClEwG30TENbpgipYqaA:AFWwaeYAAAAAZ5FesaCzrOd66ckJ_CuzOF6hK1Y&scisig=AFWwaeYAAAAAZ5FesXA-vuLyPPjo11jy_6BKEwQ&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+Recently, traffic panel detection has attracted both academic and industrial attention. However, there are a few works that studied text-based traffic panels.  This is because there are many challenges in this kind of traffic panels. To obtain an
+appropriate accuracy in text recognition in the text-based traffic panels, we need to detect the panel. Since there is no public text-based traffic panels dataset, we collected a new dataset
+included the Persian text-based traffic panels in the streets of Tehran-Iran for the first time. Our dataset contains two sets of figures.
+The first set has 9294 pictures, and the second set has 3305 pictures. The second dataset is more uniform than the
+first dataset. Therefore, we exploit the first set as an additional dataset and use the second one as the main dataset. Accordingly,
+we pretrain the network by the additional dataset and train it by the main dataset. We use the tiny YOLOv3 (You Only Look Once
+version three) algorithm to pretrain, train, and test the dataset. The algorithm is fast and has low complexity. 
+We use K-fold cross-validation method to appraise the efficiency of the algorithm.
+From the results section, we can see that Precision is 0.973, Recall is 0.945, and F-measure is 0.955.
+                    </div>
+                    <div class="project-image">
+                       <img src="images/oblique.jpg" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+
+
+<!-- Project 11 -->
+            <div class="project">
+                <div class="project-header">
+                    <h2>Max-Min Ant Colony Optimization Method for Edge Detection Exploiting a New Heuristic Information Function</h2>
+                    <div class="project-author">
+                        <strong>Authors:</strong>Saba Kheirinejad, Seyed Mohammad Hossein Hasheminejad, Nooshin Riahi
+                    </div>
+                </div>
+
+                <div class="project-links">
+                    <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8566516" class="pdf">PDF</a> 
+                    <a href="https://ieeexplore.ieee.org/abstract/document/8566516"class="doi">DOI</a> 
+                    <a href="https://scholar.googleusercontent.com/scholar.bib?q=info:TsQ5ZQ_uhIYJ:scholar.google.com/&output=citation&scisdr=ClEwG30TENbpgipiypA:AFWwaeYAAAAAZ5Fk0pA-h4sBdeYAiCY2ZAQhheI&scisig=AFWwaeYAAAAAZ5Fk0oqcktsa0oXEKVaJjLBtqqE&scisf=4&ct=citation&cd=-1&hl=en"class="cite">CITE</a> 
+                </div>
+
+                <div class="project-content">
+                    <div class="project-abstract">
+                    <strong>ABSTRACT:</strong>
+Edge detection is a substantial operation in machine vision and image processing. Recently, many ant colony
+optimization (ACO) algorithms have been exploited for a wide range of optimization problem such as edge detection. In this
+study, we apply the max-min ant colony optimization (MMACO) method to detect the image edges. Moreover, we propose a
+new heuristic information function (HIF) namely group based heuristic information function (GBHIF) to determine the nodes
+which ants visit around their place. Our proposed HIF exploits the difference between the intensity of two groups of nodes
+instead of two single one. In the simulation result section we show that the robustness of proposed edge detection algorithm
+is more than that of the previous algorithms.
+                    </div>
+                    <div class="project-image">
+                       <img src="images/edge.jpg" alt="Project Image">
+                    </div>
+                </div>
+            </div>
+            
+
+
+            
+        </div>
+        <footer>
+            <p>© 2024 Saba Kheirinejad. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
